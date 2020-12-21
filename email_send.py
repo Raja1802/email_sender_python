@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[18]:
-
-
 # # Python code to illustrate Sending mail 
 # # to multiple users 
 # # from your Gmail account 
@@ -19,57 +13,16 @@
 # 	message = "hellow world"
 # 	s.sendmail("ajar.mailer.com@gmail.com", dest, message) 
 # 	s.quit() 
-# import pandas as pd
-# import numpy as np
-# data = pd.read_csv("0.csv")
-# data.head()
-# data.shape
-# data["emails"].head()
-# inde = 0
+import pandas as pd
+import numpy as np
+data = pd.read_csv("https://shopinsta-media.s3.us-east-2.amazonaws.com/marketing/email_csv/0.csv")# data.head()
+data.shape
+data["emails"].head()
+inde = 0
 # for email in data["emails"]:
 #     print(email)
 #     print(inde)
 #     inde = inde + 1
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[17]:
-
 
 import smtplib
 import email.message
@@ -1204,28 +1157,21 @@ Thank You
 """
  
 # msg = email.message.Message()
-msg = MIMEMultipart('alternative')
-msg['Subject'] = 'Your Christmas and new years buying is here.'
-
- 
-msg['From'] = 'ajar@mail.ajarmailer.ga'
-msg['To'] = 'ajar.shopinsta@gmail.com'
-# password = "Raja@1802"
-msg.add_header('Content-Type', 'text/html')
-# msg.set_payload(email_content)
-part2 = MIMEText(html, 'html')
-msg.attach(part2)
-s = smtplib.SMTP('smtp.localhost: 25')
-s.starttls()
-# Login Credentials for sending the mail
-# s.login(msg['From'], password)
-# msg = msg.as_string()
-# msg = msg.encode('ascii', 'gnore').decode('ascii')
-s.sendmail(msg['From'], [msg['To']], msg.as_string())
-
-
-# In[ ]:
-
-
-
-
+for email in data["emails"]:
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = 'Reminder for your holidays shopping'
+    msg['From'] = 'noreply@mail.ajarmailer.ga'
+    msg['To'] = f'{email}'
+    # password = "Raja@1802"
+    msg.add_header('Content-Type', 'text/html')
+    # msg.set_payload(email_content)
+    part2 = MIMEText(html, 'html')
+    msg.attach(part2)
+    s = smtplib.SMTP('smtp.localhost: 25')
+    s.starttls()
+    # Login Credentials for sending the mail
+    # s.login(msg['From'], password)
+    # msg = msg.as_string()
+    # msg = msg.encode('ascii', 'gnore').decode('ascii')
+    s.sendmail(msg['From'], [msg['To']], msg.as_string())
+print("done")
